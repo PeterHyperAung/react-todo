@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { Switch } from '@mui/material';
 
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
 const theme = createTheme({
     palette: {
         mode: 'dark',
+        text: {
+            fade: '#999',
+            light: '#fff',
+        },
+        mainBg: '#068488',
     },
 });
 

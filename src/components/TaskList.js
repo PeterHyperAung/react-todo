@@ -10,7 +10,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { Link } from 'react-router-dom';
 
 const TaskList = ({ items, remove, toggle, edit }) => {
-    const [parent, enableAnimations] = useAutoAnimate();
+    const [parent] = useAutoAnimate();
 
     return (
         <Box>
@@ -19,7 +19,7 @@ const TaskList = ({ items, remove, toggle, edit }) => {
                     <ListItem
                         key={item.id}
                         style={{
-                            color: item.done ? 'gray' : 'black',
+                            color: item.done ? 'gray' : 'light',
                         }}
                         secondaryAction={
                             <Box>
@@ -44,7 +44,7 @@ const TaskList = ({ items, remove, toggle, edit }) => {
                             {item.done ? (
                                 <UndoIcon />
                             ) : (
-                                <CheckIcon sx={{ color: green[500] }} />
+                                <CheckIcon sx={{ color: 'mainBg' }} />
                             )}
                         </IconButton>
                         &nbsp;

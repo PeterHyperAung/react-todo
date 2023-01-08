@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import EditTask from './components/EditTask';
 import Home from './components/Home';
-import { pink } from '@mui/material/colors';
-import { Box, AppBar, Toolbar, Typography, Button } from '@mui/material';
+// import { pink } from '@mui/material/colors';
+import { Box } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+
+// if the value doesn't change you can simply set it here
+export const CountContext = createContext();
 
 function App() {
     const [items, setItems] = useState([
@@ -44,44 +48,29 @@ function App() {
     }
 
     return (
-        <Box>
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" sx={{ backgroundColor: pink[500] }}>
-                    <Toolbar>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ flexGrow: 1 }}
-                        >
-                            Todo App
-                        </Typography>
-
-                        <Button color="inherit" onClick={clear}>
-                            Clear
-                        </Button>
-                    </Toolbar>
-                </AppBar>
+        <CountContext.Provider value={items.length}>
+            <Box>
+                <Header clear={clear}></Header>
+                <Routes>
+                    <Route
+                        path=""
+                        element={
+                            <Home
+                                items={items}
+                                add={add}
+                                remove={remove}
+                                update={update}
+                                toggle={toggle}
+                            />
+                        }
+                    ></Route>
+                    <Route
+                        path="/edit/:id"
+                        element={<EditTask get={get} update={update} />}
+                    ></Route>
+                </Routes>
             </Box>
-
-            <Routes>
-                <Route
-                    path=""
-                    element={
-                        <Home
-                            items={items}
-                            add={add}
-                            remove={remove}
-                            update={update}
-                            toggle={toggle}
-                        />
-                    }
-                ></Route>
-                <Route
-                    path="/edit/:id"
-                    element={<EditTask get={get} update={update} />}
-                ></Route>
-            </Routes>
-        </Box>
+        </CountContext.Provider>
     );
 }
 
