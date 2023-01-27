@@ -5,11 +5,11 @@ import {
     Check as CheckIcon,
     Undo as UndoIcon,
 } from '@mui/icons-material';
-import { green, pink, grey } from '@mui/material/colors';
+import { pink, grey } from '@mui/material/colors';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { Link } from 'react-router-dom';
 
-const TaskList = ({ items, remove, toggle, edit }) => {
+const TaskList = ({ items, remove, toggle }) => {
     const [parent] = useAutoAnimate();
 
     return (
@@ -17,13 +17,13 @@ const TaskList = ({ items, remove, toggle, edit }) => {
             <List ref={parent}>
                 {items.map((item) => (
                     <ListItem
-                        key={item.id}
+                        key={item._id}
                         style={{
                             color: item.done ? 'gray' : 'light',
                         }}
                         secondaryAction={
                             <Box>
-                                <Link to={'/edit/' + item.id}>
+                                <Link to={'/edit/' + item._id}>
                                     <IconButton edge="end" aria-label="edit">
                                         <EditIcon sx={{ color: grey[500] }} />
                                     </IconButton>
@@ -32,7 +32,7 @@ const TaskList = ({ items, remove, toggle, edit }) => {
                                     edge="end"
                                     aria-label="delete"
                                     onClick={() => {
-                                        remove(item.id);
+                                        remove(item._id);
                                     }}
                                 >
                                     <DeleteIcon sx={{ color: pink[400] }} />
@@ -40,7 +40,7 @@ const TaskList = ({ items, remove, toggle, edit }) => {
                             </Box>
                         }
                     >
-                        <IconButton onClick={() => toggle(item.id)}>
+                        <IconButton onClick={() => toggle(item._id)}>
                             {item.done ? (
                                 <UndoIcon />
                             ) : (
@@ -48,7 +48,9 @@ const TaskList = ({ items, remove, toggle, edit }) => {
                             )}
                         </IconButton>
                         &nbsp;
-                        <ListItemText>{item.subject}</ListItemText>
+                        <ListItemText className="base">
+                            {item.subject}
+                        </ListItemText>
                     </ListItem>
                 ))}
             </List>

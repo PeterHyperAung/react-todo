@@ -1,30 +1,20 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-
-const theme = createTheme({
-    palette: {
-        mode: 'dark',
-        text: {
-            fade: '#999',
-            light: '#fff',
-        },
-        mainBg: '#068488',
-    },
-});
+import { CssBaseline } from '@mui/material';
+import ThemedApp from './ThemedApp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Router>
-            <ThemeProvider theme={theme}>
+            <ThemedApp>
                 <CssBaseline />
                 <App />
-            </ThemeProvider>
+            </ThemedApp>
         </Router>
     </React.StrictMode>
 );

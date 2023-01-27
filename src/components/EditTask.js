@@ -13,19 +13,24 @@ import {
     Save as SaveIcon,
 } from '@mui/icons-material';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+const api = "http://localhost:8000";
 
-const EditTask = ({ get, update }) => {
+const EditTask = ({ update }) => {
     const { id } = useParams();
     const navigate = useNavigate();
 
     const [subject, setSubject] = useState('');
 
     useEffect(() => {
-        setSubject(get(id).subject);
-    }, [id, get]);
+        (async () => {
+        const res = await fetch(`${api}/tasks/${id}`);
+        const result = await res.json();
+        setSubject(result.subject);
+        })()
+    }, [id]);
 
     return (
-        <Container maxWidth="sm" sx={{ mt: 4 }}>
+        <Container maxWidth="lg" sx={{ mt: 4 }}>
             <Box>
                 <IconButton
                     onClick={() => {
